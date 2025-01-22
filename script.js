@@ -140,3 +140,15 @@ blobs.forEach(blob => {
 });
 
 moveBlobs();
+
+
+// Hide the div with id 'blobs' and then make it visible slowly after 2 seconds
+const blobsContainer = document.getElementById('blobs');
+blobsContainer.style.opacity = 0;
+
+setTimeout(() => {
+  blobsContainer.style.transition = 'opacity 2s';
+  blobsContainer.style.opacity = 2;
+}, 100);
+
+
