@@ -2,18 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Csomi's Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://unpkg.com/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
-  <!-- Landing Section -->
-  <!-- Landing Section -->
-<section id="landing">
-  <!-- Blob Background -->
-  <!--
-    TODO: Fix when scrolling down, the blobs should move up
-  -->
-
   <div id="blobs">
     <div class="blob" style="top: 10%; left: 15%;"></div>
     <div class="blob" style="top: 20%; left: 50%;"></div>
@@ -25,151 +19,96 @@
     <div class="blob" style="top: 85%; left: 60%;"></div>
   </div>
 
-  <div id="overlay-container">
-    <div id="profile-picture">
-      <img src="images/me.jpg" alt="Csomi's profile picture">
-    </div>
-    <div class="overlay">
-      <h1>Hello, my name is <span style="font-size: 1.1em;">Csomi</span>, and I am currently  <span class="typing-animation highlight"
-        data-phrases='["coding", "playing with cats", "gaming", "hiking", "coding in Python", "bouldering", "crafting a project"]'
-        data-type-speed="100"
-        data-delete-speed="50"
-        data-cursor="true"></span>
-      </h1>
-      <p>
-        I'm a 12th-grade student passionate about IT, programming, and creative problem-solving. From building websites to tackling CTF challenges, I thrive on learning and innovation. Outside of tech, I enjoy brainstorming new ideas and hanging out with my cat, Dorina. Welcome to my portfolio!
-      </p>      
-      <div class="cta-button-container">
-        <a href="#projects" class="cta-button">Explore My Work</a>
-        <a href="#contact" class="cta-button-secondary">Get in Touch</a>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-indicator"><a href="#about">&#8595;</a></div>
-</section>
-
-
-  <!-- Curved Separator -->
-  <div class="curve">
-    <div class="custom-shape-divider-bottom-1736945538">
-      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
-          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
-          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
-      </svg>
-    </div>
-  </div>
-
-  <!-- About Me Section -->
-  <section id="about">
-    <h2>My Journey</h2>
-    <div class="timeline">
-      <!-- Timeline Items -->
-      <div class="timeline-item">
-        <div class="timeline-content">
-          <div class="timeline-circle"></div>
-          <h3 class="timeline-year">2017</h3>
-          <p>Started with Scratch: Began my programming journey by creating interactive stories and games using Scratch.</p>
+  <main>
+    <section id="landing">
+      <a href="#contact" class="job-bubble">
+        Looking for a job
+      </a>
+      <div class="profile-container">
+        <img src="images/me.jpg" alt="Csomi's profile picture" class="profile-picture">
+        <div class="info">
+          <h1>Csomi</h1>
+          <h2>Csomós Ádám Benedek</h2>
+          <div class="location">
+            <i class="ri-map-pin-line"></i>
+            <span>Budapest, Hungary</span>
+          </div>
+          <p>19 years old, currently focusing on Python development</p>
+          <p>Open to learning new technologies</p>
+          <div class="experience">
+            <p>• 1 year Python application development</p>
+            <p>• Freelance web development experience</p>
+          </div>
         </div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-content">
-          <div class="timeline-circle"></div>
-          <h3 class="timeline-year">2020</h3>
-          <p>Discovered Python: Dove into Python programming, building scripts and simple applications.</p>
+    </section>
+
+    <section id="technologies">
+      <h2>Current Technologies</h2>
+      <p class="section-desc">I'm proficient in a range of modern technologies that empower me to build highly functional solutions. These are some of my main technologies.</p>
+      
+      <div class="tech-grid">
+        <div class="tech-card">
+          <i class="ri-pen-nib-line"></i>
+          <h3>Figma</h3>
+          <p>Design Tool</p>
+        </div>
+        
+        <div class="tech-card">
+          <i class="ri-braces-line"></i>
+          <h3>TypeScript</h3>
+          <p>JavaScript but better</p>
+        </div>
+        
+        <div class="tech-card">
+          <i class="ri-reactjs-line"></i>
+          <h3>React</h3>
+          <p>JavaScript Library</p>
+        </div>
+        
+        <div class="tech-card">
+          <i class="ri-layout-2-line"></i>
+          <h3>NextJS</h3>
+          <p>React framework</p>
+        </div>
+        
+        <div class="tech-card">
+          <i class="ri-paint-brush-line"></i>
+          <h3>Tailwind</h3>
+          <p>CSS framework</p>
+        </div>
+        
+        <div class="tech-card">
+          <i class="ri-git-branch-line"></i>
+          <h3>Git</h3>
+          <p>Version control</p>
+        </div>
+        
+        <div class="tech-card">
+          <i class="ri-database-2-line"></i>
+          <h3>Supabase</h3>
+          <p>Backend tool</p>
+        </div>
+        
+        <div class="tech-card">
+          <i class="ri-brain-line"></i>
+          <h3>AI Prompting</h3>
+          <p>AI Integration</p>
         </div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-content">
-          <div class="timeline-circle"></div>
-          <h3 class="timeline-year">2022</h3>
-          <p>Ventured into Cybersecurity: Learned basic Linux and participated in cybersecurity CTFs, igniting a passion for cybersecurity.</p>
-        </div>
-      </div>
-      <!-- Add more timeline items as needed -->
-    </div>
-  </section>
+    </section>
 
-  <!-- Curved Separator -->
-  <div class="curve flip">
-  </div>
+    <section id="contact">
+      <h2>Get in Touch</h2>
+      <form>
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" rows="5" placeholder="Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
 
-  <!-- Skills Section -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <!-- Skill Items -->
-      <div class="skill-item">
-        <div class="placeholder-icon"></div>
-        <p>Python</p>
-      </div>
-      <div class="skill-item">
-        <div class="placeholder-icon"></div>
-        <p>JavaScript</p>
-      </div>
-      <div class="skill-item">
-        <div class="placeholder-icon"></div>
-        <p>Linux</p>
-      </div>
-      <!-- Add more skill items as needed -->
-    </div>
-  </section>
-
-  <!-- Curved Separator -->
-  <div class="curve"></div>
-
-  <!-- Projects Section -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <!-- Project Cards -->
-      <div class="project-card">
-        <div class="placeholder-image"></div>
-        <h3>Project One</h3>
-        <p>Short description of the project.</p>
-        <a href="#" class="project-link">Learn More</a>
-      </div>
-      <div class="project-card">
-        <div class="placeholder-image"></div>
-        <h3>Project Two</h3>
-        <p>Short description of the project.</p>
-        <a href="#" class="project-link">Learn More</a>
-      </div>
-      <div class="project-card">
-        <div class="placeholder-image"></div>
-        <h3>Cybersecurity CTFs</h3>
-        <p>Highlights of the cybersecurity challenges I've tackled.</p>
-        <a href="#" class="project-link">Learn More</a>
-      </div>
-      <!-- Add more project cards as needed -->
-    </div>
-  </section>
-
-  <!-- Curved Separator -->
-  <div class="curve flip"></div>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Get in Touch</h2>
-    <form>
-      <input type="text" name="name" placeholder="Name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <textarea name="message" rows="5" placeholder="Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2023 Csomi's Portfolio</p>
-    <div class="social-links">
-      <!-- Gray rectangles as placeholders -->
-      <div class="placeholder-icon"></div>
-      <div class="placeholder-icon"></div>
-    </div>
-  </footer>
-
-  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
