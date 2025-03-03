@@ -12,28 +12,16 @@ body {
   line-height: 1.6;
 }
 
-/* Blob background */
-#blobs {
+/* Canvas background */
+#blobCanvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 2s;
-}
-
-.blob {
-  position: absolute;
-  background: radial-gradient(circle, rgba(0, 183, 255, 0.4) 0%, rgba(0, 102, 204, 0.4) 100%);
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  filter: blur(50px);
-  pointer-events: none;
+  opacity: 0.95;
 }
 
 /* Main layout */
@@ -49,14 +37,33 @@ section {
 
 /* Landing section */
 #landing {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   padding-top: 1rem;
   overflow: hidden;
-  background-color: transparent;
+  margin: 0;
+}
+
+/* Technologies section */
+#technologies {
+  text-align: center;
+  background-color: #0a0a0a;
+  position: relative;
+  padding: 4rem 0;
+  margin-top: 0;
+}
+
+/* Contact section */
+#contact {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 4rem 0;
+  text-align: center;
+  background-color: #0a0a0a;
+  position: relative;
 }
 
 .job-bubble {
@@ -179,16 +186,6 @@ section {
   50% { transform: translateY(-10px); }
 }
 
-/* Technologies section */
-#technologies {
-  text-align: center;
-  background-color: #0a0a0a;
-  position: relative;
-  z-index: 1;
-  padding: 4rem 0;
-  margin-top: 0;
-}
-
 #technologies h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
@@ -237,17 +234,6 @@ section {
 .tech-card p {
   color: #888;
   font-size: 0.9rem;
-}
-
-/* Contact section */
-#contact {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 4rem 0;
-  text-align: center;
-  background-color: #0a0a0a;
-  position: relative;
-  z-index: 1;
 }
 
 #contact h2 {

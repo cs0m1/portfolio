@@ -1,101 +1,135 @@
-// Blob Movement and Mouse Repulsion Logic
-const blobs = document.querySelectorAll('.blob');
-const velocities = Array.from(blobs).map(() => ({
-  x: (Math.random() - 0.5) * 2,
-  y: (Math.random() - 0.5) * 2
-}));
-
-const originalVelocities = velocities.map(velocity => ({ ...velocity }));
-let mouseX = null;
-let mouseY = null;
-
-const effectRadius = 400;
-const maxForce = 8;
-
-function moveBlobs() {
-  blobs.forEach((blob, index) => {
-    const rect = blob.getBoundingClientRect();
-    let left = rect.left + velocities[index].x;
-    let top = rect.top + velocities[index].y;
-
-    // Gradually return to original speed
-    velocities[index].x += (originalVelocities[index].x - velocities[index].x) * 0.01;
-    velocities[index].y += (originalVelocities[index].y - velocities[index].y) * 0.01;
-
-    // Bounce off edges
-    if (left <= 0) {
-      left = 0;
-      velocities[index].x *= -1;
-      originalVelocities[index].x *= -1;
-    } else if (left + rect.width >= window.innerWidth) {
-      left = window.innerWidth - rect.width;
-      velocities[index].x *= -1;
-      originalVelocities[index].x *= -1;
-    }
-
-    if (top <= 0) {
-      top = 0;
-      velocities[index].y *= -1;
-      originalVelocities[index].y *= -1;
-    } else if (top + rect.height >= window.innerHeight) {
-      top = window.innerHeight - rect.height;
-      velocities[index].y *= -1;
-      originalVelocities[index].y *= -1;
-    }
-
-    // Mouse repulsion
-    if (mouseX !== null && mouseY !== null) {
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const distanceX = centerX - mouseX;
-      const distanceY = centerY - mouseY;
-      const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
-
-      if (distance < effectRadius) {
-        const force = Math.min(maxForce, effectRadius / (distance ** 2));
-        velocities[index].x += (distanceX / distance) * force;
-        velocities[index].y += (distanceY / distance) * force;
-      }
-    }
-
-    blob.style.left = `${left}px`;
-    blob.style.top = `${top}px`;
-  });
-
-  requestAnimationFrame(moveBlobs);
-}
-
-// Track mouse position
-document.addEventListener('mousemove', function(e) {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
-// Initialize blobs
 document.addEventListener('DOMContentLoaded', function() {
-  // Set initial positions for blobs
-  blobs.forEach(blob => {
-    blob.style.position = 'absolute';
+  const canvas = document.getElementById('blobCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  // Set canvas size to match parent (landing section)
+  function resizeCanvas() {
+    canvas.width = canvas.parentElement.offsetWidth;
+    canvas.height = canvas.parentElement.offsetHeight;
+  }
+  
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Blob class
+  class Blob {
+    constructor() {
+      this.radius = 150;
+      this.x = Math.random() * (canvas.width - this.radius * 2) + this.radius;
+      this.y = Math.random() * (canvas.height - this.radius * 2) + this.radius;
+      this.vx = (Math.random() - 0.5) * 2;
+      this.vy = (Math.random() - 0.5) * 2;
+      this.originalSpeed = {
+        x: this.vx,
+        y: this.vy
+      };
+    }
+
+    draw() {
+      const gradient = ctx.createRadialGradient(
+        this.x, this.y, 0,
+        this.x, this.y, this.radius
+      );
+      gradient.addColorStop(0, 'rgba(0, 183, 255, 0.6)');
+      gradient.addColorStop(1, 'rgba(0, 102, 204, 0.1)');
+
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    }
+
+    update() {
+      // Update position
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // Bounce off boundaries with margin
+      const margin = 50;
+      if (this.x - this.radius <= margin) {
+        this.x = this.radius + margin;
+        this.vx = Math.abs(this.vx);
+        this.originalSpeed.x = Math.abs(this.originalSpeed.x);
+      } else if (this.x + this.radius >= canvas.width - margin) {
+        this.x = canvas.width - this.radius - margin;
+        this.vx = -Math.abs(this.vx);
+        this.originalSpeed.x = -Math.abs(this.originalSpeed.x);
+      }
+
+      if (this.y - this.radius <= margin) {
+        this.y = this.radius + margin;
+        this.vy = Math.abs(this.vy);
+        this.originalSpeed.y = Math.abs(this.originalSpeed.y);
+      } else if (this.y + this.radius >= canvas.height - margin) {
+        this.y = canvas.height - this.radius - margin;
+        this.vy = -Math.abs(this.vy);
+        this.originalSpeed.y = -Math.abs(this.originalSpeed.y);
+      }
+
+      // Mouse repulsion
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = this.x - mouse.x;
+        const dy = this.y - mouse.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const repulsionRadius = 200;
+        
+        if (distance < repulsionRadius) {
+          const force = (1 - distance / repulsionRadius) * 0.8;
+          const angle = Math.atan2(dy, dx);
+          
+          this.vx += Math.cos(angle) * force;
+          this.vy += Math.sin(angle) * force;
+          
+          // Add slight randomness
+          this.vx += (Math.random() - 0.5) * 0.2;
+          this.vy += (Math.random() - 0.5) * 0.2;
+        }
+      }
+
+      // Gradually return to original speed
+      this.vx += (this.originalSpeed.x - this.vx) * 0.01;
+      this.vy += (this.originalSpeed.y - this.vy) * 0.01;
+    }
+  }
+
+  // Create blobs
+  const blobs = Array(8).fill().map(() => new Blob());
+  
+  // Mouse tracking
+  const mouse = { x: null, y: null };
+  canvas.parentElement.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  
+  canvas.parentElement.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
   });
 
-  // Start blob animation
-  moveBlobs();
+  // Animation loop
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw blobs with blur effect
+    ctx.filter = 'blur(50px)';
+    blobs.forEach(blob => {
+      blob.update();
+      blob.draw();
+    });
+    ctx.filter = 'none';
+    
+    requestAnimationFrame(animate);
+  }
 
-  // Fade in blobs
-  const blobsContainer = document.getElementById('blobs');
-  blobsContainer.style.opacity = 0;
-  setTimeout(() => {
-    blobsContainer.style.transition = 'opacity 2s';
-    blobsContainer.style.opacity = 1;
-  }, 100);
+  animate();
 
-  // Smooth scroll for navigation links
+  // Smooth scroll for navigation
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
-      const targetId = this.getAttribute('href');
-      const target = document.querySelector(targetId);
-      
+      const target = document.querySelector(this.getAttribute('href'));
       if (target) {
         target.scrollIntoView({
           behavior: 'smooth',
@@ -105,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Form submission prevention (since we don't have a backend)
+  // Form submission prevention
   const form = document.querySelector('form');
   if (form) {
     form.addEventListener('submit', function(e) {
