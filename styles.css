@@ -10,41 +10,141 @@ body {
   background-color: #0a0a0a;
   color: #fff;
   line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Main layout */
+main {
+  width: 100%;
+}
+
+/* Landing section */
+#landing {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+.landing-content {
+  max-width: 1200px;
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Navigation */
+.top-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 5;
+}
+
+.nav-left .logo-link {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 5;
+}
+
+.nav-left .logo-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.nav-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.nav-icon {
+  color: #fff;
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+  text-decoration: none;
+}
+
+.nav-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.nav-icon i {
+  transition: all 0.3s ease;
+}
+
+.nav-icon:hover i {
+  transform: scale(1.15);
+  color: #00bfff;
 }
 
 /* Canvas background */
 #blobCanvas {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
+  opacity: 0;
+  background-color: #0a0a0a;
+  transition: opacity 0.5s ease;
+}
+
+#blobCanvas.loaded {
   opacity: 0.95;
 }
 
-/* Main layout */
-main {
+#landing::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, #0a0a0a);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Content sections */
+section:not(#landing) {
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-}
-
-section {
-  margin: 4rem 0;
-}
-
-/* Landing section */
-#landing {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding-top: 1rem;
-  overflow: hidden;
-  margin: 0;
+  padding: 4rem 2rem;
+  background-color: #0a0a0a;
 }
 
 /* Technologies section */
@@ -52,8 +152,8 @@ section {
   text-align: center;
   background-color: #0a0a0a;
   position: relative;
-  padding: 4rem 0;
   margin-top: 0;
+  z-index: 3;
 }
 
 /* Contact section */
@@ -64,11 +164,23 @@ section {
   text-align: center;
   background-color: #0a0a0a;
   position: relative;
+  z-index: 3;
 }
 
 .job-bubble {
   margin-bottom: 2.5rem;
-  z-index: 1;
+  z-index: 5;
+  position: relative;
+  padding: 0.6rem 1.2rem;
+  background: rgba(0, 255, 0, 0.1);
+  border: 2px solid #00ff00;
+  border-radius: 2rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
 }
 
 .profile-container {
@@ -80,7 +192,8 @@ section {
   border-radius: 1rem;
   backdrop-filter: blur(10px);
   margin-top: 2rem;
-  z-index: 1;
+  z-index: 2;
+  position: relative;
 }
 
 .profile-picture {
@@ -98,7 +211,6 @@ section {
 .info h1 {
   font-size: 2.8rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
   white-space: nowrap;
   color: #fff;
 }
@@ -113,13 +225,14 @@ section {
   font-size: 1.5rem;
   font-weight: 400;
   color: #888;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .info p {
   font-size: 1.1rem;
   line-height: 1.8;
   color: #888;
+  margin-top: 1.5rem;
 }
 
 .info p .highlight {
@@ -134,7 +247,7 @@ section {
   align-items: center;
   gap: 0.5rem;
   color: #888;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .location i {
@@ -150,21 +263,7 @@ section {
   margin: 0.5rem 0;
 }
 
-/* Job bubble */
-.job-bubble {
-  position: relative;
-  padding: 0.6rem 1.2rem;
-  background: rgba(0, 255, 0, 0.1);
-  border: 2px solid #00ff00;
-  border-radius: 2rem;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  animation: float 3s ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-}
-
+/* Job bubble effects */
 .job-bubble:hover {
   background: rgba(0, 255, 0, 0.2);
   transform: translateY(-5px);
@@ -186,20 +285,7 @@ section {
   50% { transform: translateY(-10px); }
 }
 
-#technologies h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #00bfff 0%, #0073e6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.section-desc {
-  max-width: 700px;
-  margin: 0 auto 3rem;
-  color: #888;
-}
-
+/* Technology cards */
 .tech-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -236,14 +322,22 @@ section {
   font-size: 0.9rem;
 }
 
-#contact h2 {
+/* Section headings */
+#technologies h2, #contact h2 {
   font-size: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   background: linear-gradient(135deg, #00bfff 0%, #0073e6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.section-desc {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  color: #888;
+}
+
+/* Contact form */
 form {
   display: flex;
   flex-direction: column;
@@ -281,8 +375,26 @@ button:hover {
 
 /* Responsive design */
 @media (max-width: 768px) {
-  #landing {
-    padding-top: 1.5rem;
+  .landing-content {
+    padding: 1rem;
+  }
+
+  .top-nav {
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-right {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .nav-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.2rem;
   }
 
   .job-bubble {
@@ -315,7 +427,7 @@ button:hover {
 }
 
 @media (max-width: 480px) {
-  main {
+  .landing-content {
     padding: 1rem;
   }
 
@@ -331,7 +443,7 @@ button:hover {
 
 /* For larger screens */
 @media (min-width: 1400px) {
-  main {
+  .landing-content {
     max-width: 1400px;
   }
 
