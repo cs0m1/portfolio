@@ -154,23 +154,101 @@ section:not(#landing) {
   position: relative;
   margin-top: 0;
   z-index: 3;
-  padding: 4rem 1rem;
+  padding: 6rem 1rem;
 }
 
 #technologies h2 {
-  margin-bottom: 1.5rem;
-  padding: 0;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #00bfff 0%, #0073e6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #technologies .section-desc {
   margin-bottom: 3rem;
   font-size: 1.1rem;
   line-height: 1.6;
+  padding: 0 1rem;
+  color: #888;
+  max-width: 800px;
 }
 
-#technologies .tech-grid {
-  margin: 0 -1rem;
-  padding: 0 1rem;
+/* Technology cards */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-auto-flow: dense;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: stretch;
+  min-height: min-content;
+}
+
+.tech-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding-left: 1rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  height: 100%;
+  min-height: 110px;
+}
+
+.tech-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tech-icon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tech-icon i {
+  font-size: 1.75rem;
+  color: #00bfff;
+  transition: all 0.3s ease;
+}
+
+.tech-card:hover .tech-icon i {
+  transform: scale(1.1);
+  color: #fff;
+}
+
+.tech-content {
+  flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tech-content h3 {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
+}
+
+.tech-content p {
+  color: #888;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
 }
 
 /* Contact section */
@@ -187,24 +265,13 @@ section:not(#landing) {
 #contact h2 {
   text-align: left;
   margin-bottom: 2rem;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #00bfff 0%, #0073e6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.job-bubble {
-  margin-bottom: 2.5rem;
-  z-index: 5;
-  position: relative;
-  padding: 0.6rem 1.2rem;
-  background: rgba(0, 255, 0, 0.1);
-  border: 2px solid #00ff00;
-  border-radius: 2rem;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  animation: float 3s ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-}
-
+/* Profile section */
 .profile-container {
   display: flex;
   gap: 2rem;
@@ -254,49 +321,29 @@ section:not(#landing) {
   -webkit-text-fill-color: transparent;
 }
 
-.info h2 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #888;
-  margin-bottom: 0.5rem;
-}
-
-.info p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #888;
-  margin-top: 1.5rem;
-}
-
-.info p .highlight {
+.highlight {
   background: linear-gradient(135deg, #00bfff 0%, #0073e6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 600;
 }
 
-.location {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #888;
-  margin-bottom: 0.5rem;
+/* Job bubble */
+.job-bubble {
+  margin-bottom: 2.5rem;
+  z-index: 5;
+  position: relative;
+  padding: 0.6rem 1.2rem;
+  background: rgba(0, 255, 0, 0.1);
+  border: 2px solid #00ff00;
+  border-radius: 2rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
 }
 
-.location i {
-  color: #00bfff;
-}
-
-.experience {
-  margin-top: 1rem;
-  color: #aaa;
-}
-
-.experience p {
-  margin: 0.5rem 0;
-}
-
-/* Job bubble effects */
 .job-bubble:hover {
   background: rgba(0, 255, 0, 0.2);
   transform: translateY(-5px);
@@ -311,63 +358,6 @@ section:not(#landing) {
 
 .job-bubble:hover .link-underline {
   text-decoration-color: rgba(255, 255, 255, 0.8);
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Technology cards */
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
-}
-
-.tech-card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  border-radius: 1rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.tech-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.tech-card i {
-  font-size: 2.5rem;
-  color: #00bfff;
-  margin-bottom: 1rem;
-}
-
-.tech-card h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-}
-
-.tech-card p {
-  color: #888;
-  font-size: 0.9rem;
-}
-
-/* Section headings */
-#technologies h2, #contact h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #00bfff 0%, #0073e6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.section-desc {
-  max-width: 700px;
-  padding-left: 1rem;
-  color: #888;
 }
 
 /* Contact form */
@@ -412,13 +402,74 @@ button:hover {
   background: #0073e6;
 }
 
-/* Fixed mobile navigation */
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 1.25rem;
+    max-width: 800px;
+  }
+}
+
 @media (max-width: 768px) {
   .landing-content {
     padding: 1rem;
-    padding-bottom: 5rem; /* Space for fixed navigation */
+    padding-bottom: 5rem;
   }
 
+  .profile-container {
+    flex-direction: column;
+    text-align: left;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .desktop-title {
+    display: none;
+  }
+
+  .mobile-title {
+    display: block;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .tech-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tech-card {
+    padding: 1.25rem;
+  }
+
+  .tech-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .tech-icon i {
+    font-size: 1.5rem;
+  }
+
+  .tech-content h3 {
+    font-size: 1rem;
+  }
+
+  .tech-content p {
+    font-size: 0.85rem;
+  }
+
+  /* Mobile navigation */
   .top-nav {
     position: fixed;
     bottom: 0;
@@ -440,122 +491,23 @@ button:hover {
     width: 100%;
     justify-content: space-evenly;
     gap: 0;
-    padding: 0;
-  }
-
-  .nav-icon {
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.3rem;
-    background: transparent;
-    border-radius: 0.75rem;
-  }
-
-  .nav-icon:hover {
-    background: rgba(255, 255, 255, 0.1);
   }
 
   section:not(#landing) {
-    padding-bottom: 6rem; /* Extra padding for fixed nav */
-  }
-
-  .job-bubble {
-    margin-bottom: 2rem;
-  }
-
-  .profile-container {
-    flex-direction: column;
-    text-align: left;
-    padding: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  #landing {
-    height: auto;
-    min-height: 100vh;
-  }
-
-  .landing-content {
-    min-height: 100vh;
-    height: auto;
-    padding: 1.5rem;
     padding-bottom: 6rem;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-
-  .profile-container {
-    width: 100%;
-    margin-bottom: 2rem;
-  }
-
-  .desktop-title {
-    display: none;
-  }
-
-  .mobile-title {
-    display: block;
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
-    white-space: normal;
-    line-height: 1.3;
-  }
-
-  .mobile-title .highlight {
-    display: inline;
-  }
-
-  .info {
-    width: 100%;
-  }
-
-  .info p {
-    white-space: normal;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    padding-right: 0.5rem;
-  }
-
-  .info h2 {
-    font-size: 1.2rem;
-    text-align: left;
-  }
-
-  .location {
-    justify-content: flex-start;
-  }
-
-  .info p {
-    text-align: left;
-  }
-
-  .tech-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
 
 @media (max-width: 480px) {
-  .landing-content {
-    padding: 1rem;
-  }
-
   .profile-picture {
     width: 100%;
     height: 250px;
   }
-
-  .tech-card {
-    padding: 1.5rem;
-  }
 }
 
-/* For larger screens */
 @media (min-width: 1400px) {
-  .landing-content {
-    max-width: 1400px;
-  }
-
+  .landing-content,
   .tech-grid {
-    grid-template-columns: repeat(4, 1fr);
+    max-width: 1400px;
   }
 }
