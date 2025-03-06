@@ -4,8 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Csomi's Portfolio</title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <link rel="stylesheet" href="styles.css">
   <link href="https://unpkg.com/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script type="text/javascript">
+    (function() {
+      emailjs.init("cY7t3hxh8UxecCYUE");
+    })();
+  </script>
 </head>
 <body>
   <main>
@@ -41,7 +47,7 @@
             <h1 class="mobile-title">Hello! I am <span class="highlight">Csomi</span></h1>
             <h2>Csomós Ádám Benedek</h2>
             <div class="location">
-              <i class="ri-map-pin-line"></i>
+              <span class="highlight"><i class="ri-map-pin-line"></i></span>
               <span>Budapest, Hungary</span>
             </div>
             <p><span class="highlight">19</span> years old student, focusing on <span class="highlight">Python</span> development and <span class="highlight">full stack</span> web application development. Open to learning new technologies</p>
@@ -138,13 +144,61 @@
     </section>
 
     <section id="contact">
-      <h2>Get in Touch</h2>
-      <form>
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <textarea name="message" rows="5" placeholder="Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
+      <div class="contact-container">
+        <div class="contact-info">
+          <h2>Get in Touch</h2>
+          <p class="contact-description">Feel free to reach out! I'm always open to discussing new opportunities, projects, or just having a chat about technology.</p>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <i class="ri-mail-line"></i>
+              <a href="mailto:csomos.adam.benedek@gmail.com">csomos.adam.benedek@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <i class="ri-map-pin-line"></i>
+              <span>Budapest, Hungary</span>
+            </div>
+            <div class="contact-socials">
+              <a href="https://github.com/cs0m1" target="_blank" class="social-link">
+                <i class="ri-github-fill"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/csomos-adam" target="_blank" class="social-link">
+                <i class="ri-linkedin-fill"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <form id="contactForm" novalidate>
+            <input type="hidden" name="to_name" value="Csomi">
+            
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder=" " minlength="2">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder=" " pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required placeholder=" " minlength="10"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">
+                <div class="button-content">
+                Send Message <i class="ri-send-plane-line"></i>
+                </div>
+              <div class="success-content">
+                <svg class="checkmark" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                </svg>
+                <span>Sent!</span>
+              </div>
+            </button>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
 

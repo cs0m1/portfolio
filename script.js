@@ -29,6 +29,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  // Animation helpers
+  function waitForAnimationEnd(element, className) {
+    return new Promise(resolve => {
+      const firstLetter = element.querySelector('.letter:first-child');
+      const totalDuration = 1500 + (1320); // animation duration + last letter delay
+      element.classList.add(className);
+      setTimeout(resolve, totalDuration);
+    });
+  }
+
   // Blob class
   class Blob {
     constructor(colors, width, height) {
@@ -60,11 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     update(canvasWidth, canvasHeight) {
-      // Update position with smoother movement
       this.x += this.vx * 0.8;
       this.y += this.vy * 0.8;
 
-      // Gentle boundary handling
       const margin = -this.radius * 0.5;
       if (this.x - this.radius <= margin) {
         this.x = this.radius + margin;
@@ -86,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
         this.originalSpeed.y = -Math.abs(this.originalSpeed.y) * 0.8;
       }
 
-      // Gentle mouse repulsion
       if (mouse.x !== null && mouse.y !== null) {
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
@@ -100,13 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
           this.vx += Math.cos(angle) * force;
           this.vy += Math.sin(angle) * force;
           
-          // Subtle randomness
           this.vx += (Math.random() - 0.5) * 0.05;
           this.vy += (Math.random() - 0.5) * 0.05;
         }
       }
 
-      // Very gradual return to original speed
       this.vx += (this.originalSpeed.x - this.vx) * 0.003;
       this.vy += (this.originalSpeed.y - this.vy) * 0.003;
     }
@@ -131,36 +136,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }).reverse();
   }
 
-  // Throttled resize handler
-  const resizeCanvas = throttle(function() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initializeBlobs();
-  }, isMobile ? 500 : 200); // Longer throttle on mobile
-
-  // Mouse tracking with throttling
-  const mouse = { x: null, y: null };
-  document.addEventListener('mousemove', throttle((e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  }, 16)); // ~60fps
-  
-  document.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-
-  // Animation loop with performance adjustments and device-specific settings
+  // Animation loop
   let lastTime = 0;
   function animate(currentTime) {
     if (!lastTime) lastTime = currentTime;
     const deltaTime = currentTime - lastTime;
     
-    // Limit updates on mobile or skip frames if performance drops
-    if (!isMobile || deltaTime > 16.67) { // ~60fps or slower on mobile
+    if (!isMobile || deltaTime > 16.67) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Adjust blur based on device
       ctx.filter = `blur(${isMobile ? '100px' : '140px'})`;
       blobs.forEach(blob => {
         blob.update(canvas.width, canvas.height);
@@ -174,15 +158,126 @@ document.addEventListener('DOMContentLoaded', function() {
     requestAnimationFrame(animate);
   }
 
-  // Initialize blobs and start animation
+  // Mouse tracking
+  const mouse = { x: null, y: null };
+  document.addEventListener('mousemove', throttle((e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }, 16));
+  
+  document.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  // Form validation and submission
+  const form = document.getElementById('contactForm');
+  let isSubmitting = false;
+
+  if (form) {
+    const inputs = form.querySelectorAll('input[required], textarea[required]');
+    const submitBtn = form.querySelector('.submit-btn');
+    
+    // Real-time validation
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        validateInput(input);
+      });
+      
+      input.addEventListener('blur', () => {
+        validateInput(input);
+      });
+    });
+    
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Prevent double submission
+      if (isSubmitting) return;
+      
+      // Validate all fields
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!validateInput(input)) {
+          isValid = false;
+        }
+      });
+      
+      if (!isValid) {
+        inputs[0].focus();
+        return;
+      }
+      
+      // Start submission
+      isSubmitting = true;
+      submitBtn.disabled = true;
+      submitBtn.classList.add('sending');
+      
+      try {
+        // Send email
+        await emailjs.send(
+          'service_94d9gna',
+          'template_rp9qs5f',
+          {
+            to_name: 'Csomi',
+            from_name: form.querySelector('#name').value,
+            from_email: form.querySelector('#email').value,
+            message: form.querySelector('#message').value
+          }
+        );
+        
+        // Show success state
+        submitBtn.classList.remove('sending');
+        submitBtn.classList.add('success');
+        
+        // Reset form after delay
+        setTimeout(() => {
+          submitBtn.classList.remove('success');
+          submitBtn.disabled = false;
+          isSubmitting = false;
+          form.reset();
+        }, 2000);
+        
+      } catch (error) {
+        console.error('Error:', error);
+        submitBtn.classList.remove('sending');
+        submitBtn.disabled = false;
+        isSubmitting = false;
+        alert('Something went wrong. Please try again or use the email link above.');
+      }
+    });
+  }
+
+  // Input validation helper
+  function validateInput(input) {
+    const isValid = input.checkValidity();
+    
+    if (!isValid) {
+      input.classList.add('invalid');
+      input.classList.remove('valid');
+    } else {
+      input.classList.add('valid');
+      input.classList.remove('invalid');
+    }
+    
+    return isValid;
+  }
+  
+  // Initialize blobs and other functionality
+  const resizeCanvas = throttle(function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initializeBlobs();
+  }, isMobile ? 500 : 200);
+
   resizeCanvas();
   requestAnimationFrame(animate);
   
-  // Add loaded class after initial frame is drawn
   requestAnimationFrame(() => {
     setTimeout(() => {
       canvas.classList.add('loaded');
-    }, 300); // Delay to ensure smooth transition
+    }, 300);
   });
   
   window.addEventListener('resize', resizeCanvas);
@@ -200,13 +295,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-
-  // Form submission prevention
-  const form = document.querySelector('form');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Form submission is currently disabled.');
-    });
-  }
 });
