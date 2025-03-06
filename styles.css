@@ -215,17 +215,36 @@ section:not(#landing) {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0.75rem;
 }
 
 .tech-icon i {
   font-size: 1.75rem;
-  color: #00bfff;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+  
+.tech-icon .svg-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  filter: brightness(0) invert(1);
   transition: all 0.3s ease;
 }
 
+/* Technology-specific colors */
+.tech-card:nth-child(1) .tech-icon { background-color: #3776AB; } /* Python */
+.tech-card:nth-child(2) .tech-icon { background-color: #9747FF; } /* Figma */
+.tech-card:nth-child(3) .tech-icon { background-color: #F7DF1E; } /* JavaScript */
+.tech-card:nth-child(3) .tech-icon i { color: #000; } /* JavaScript icon color */
+.tech-card:nth-child(4) .tech-icon { background-color: #61DAFB; } /* React */
+.tech-card:nth-child(5) .tech-icon { background-color: #000000; border: 1px solid #333; } /* NextJS */
+.tech-card:nth-child(6) .tech-icon { background-color: #F14E32; } /* Git */
+.tech-card:nth-child(7) .tech-icon { background-color: #3ECF8E; } /* Supabase */
+.tech-card:nth-child(8) .tech-icon { background-color: #339933; } /* Node.js */
+.tech-card:nth-child(9) .tech-icon { background-color: #A855F7; } /* AI */
+
 .tech-card:hover .tech-icon i {
   transform: scale(1.1);
-  color: #fff;
 }
 
 .tech-content {
