@@ -5,6 +5,12 @@
   box-sizing: border-box;
 }
 
+/* Global link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background-color: #0a0a0a;
@@ -145,6 +151,295 @@ section:not(#landing) {
   margin: 0 auto;
   padding: 4rem 2rem;
   background-color: #0a0a0a;
+}
+
+/* Work Experience section */
+#work {
+  text-align: left;
+  background-color: #0a0a0a;
+  position: relative;
+  z-index: 3;
+  padding: 6rem 1rem;
+}
+
+#work h2 {
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #00bfff 0%, #0073e6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#work .section-desc {
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  padding: 0 1rem;
+  color: #888;
+  max-width: 800px;
+}
+
+.work-timeline {
+  padding: 1.5rem;
+}
+
+.work-item {
+  display: flex;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.work-item:last-child {
+  margin-bottom: 0;
+}
+
+.work-item:before {
+  content: '';
+  position: absolute;
+  left: 200px;
+  top: 0;
+  bottom: -3rem;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.work-item:last-child:before {
+  bottom: 0;
+}
+
+.work-date {
+  width: 200px;
+  flex-shrink: 0;
+  padding-right: 3rem;
+  text-align: right;
+}
+
+.work-date .date {
+  color: #00bfff;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+}
+
+.work-date .duration {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.work-content {
+  padding-left: 3rem;
+  position: relative;
+}
+
+.work-content:before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  background: #00bfff;
+  border-radius: 50%;
+  border: 3px solid #0a0a0a;
+}
+
+.work-content h3 {
+  color: #fff;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.work-content .company {
+  color: #888;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.work-content ul {
+  color: #888;
+  padding-left: 1.2rem;
+}
+
+.work-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Project GitHub button */
+.project-header-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.project-title-section {
+  flex-grow: 1;
+}
+
+.github-link {
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+
+.github-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  color: #00bfff;
+}
+
+/* Project card styles */
+.project-card {
+  position: relative;
+}
+
+.project-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-github-link {
+  z-index: 3;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #fff;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(10px);
+  font-size: 1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.card-github-link:hover {
+  background: rgba(10, 10, 10, 0.9);
+  transform: translateY(-2px);
+  color: #00bfff;
+}
+
+
+/* Projects section */
+#projects {
+  text-align: left;
+  background-color: #0a0a0a;
+  position: relative;
+  z-index: 3;
+  padding: 6rem 1rem;
+}
+
+#projects h2 {
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #00bfff 0%, #0073e6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#projects .section-desc {
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  padding: 0 1rem;
+  color: #888;
+  max-width: 800px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.project-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-content {
+  padding: 1.5rem;
+}
+
+.project-content h3 {
+  color: #fff;
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.project-content p {
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag {
+  background: rgba(0, 191, 255, 0.1);
+  color: #00bfff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .tech-tag {
+  background: rgba(0, 191, 255, 0.2);
 }
 
 /* Technologies section */
