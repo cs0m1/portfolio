@@ -1100,6 +1100,46 @@ textarea {
     font-size: 0.85rem;
   }
 
+  /* Mobile work section */
+  .work-timeline {
+    padding: 1rem;
+  }
+
+  .work-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .work-item:before {
+    display: none;
+  }
+
+  .work-date {
+    width: 100%;
+    text-align: left;
+    padding: 0;
+  }
+
+  .work-date .date {
+    font-size: 1.1rem;
+  }
+
+  .work-content {
+    padding-left: 0;
+  }
+
+  .work-content:before {
+    display: none;
+  }
+
+  .work-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .work-content .company {
+    font-size: 1rem;
+  }
+
   #contact {
     padding: 3rem 1rem;
   }
